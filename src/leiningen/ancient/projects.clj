@@ -1,8 +1,7 @@
 (ns ^{:doc "Project Map Inspection for lein-ancient"
       :author "Yannick Scherer"}
   leiningen.ancient.projects
-  (:require [leiningen.ancient.version :refer [version-map]]
-            [leiningen.core.project :as project :only [defaults]]))
+  (:require [leiningen.ancient.version :refer [version-map]]))
 
 (defn dependency-map
   "Create dependency map (:group-id, :artifact-id, :version)."
@@ -20,7 +19,7 @@
   "Get seq of repository maps from project map."
   [project]
   (->>
-    (:repositories project (:repositories project/defaults))
+    (:repositories project)
     (map second)
     (map #(if (string? %) { :url % } %))
     (filter (complement nil?))))
